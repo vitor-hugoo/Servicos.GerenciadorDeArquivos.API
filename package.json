@@ -1,0 +1,27 @@
+{
+  "name": "servicos.gerenciadordearquivos.api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start" : "node dist/app.js",
+    "dev": "nodemon src/app.ts"
+    
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "multer": "^1.4.5-lts.1",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.18",
+    "@types/multer": "^1.4.8",
+    "@types/node": "^20.8.2",
+    "@types/uuid": "^9.0.4",
+    "typescript": "^5.2.2"
+  }
+}
