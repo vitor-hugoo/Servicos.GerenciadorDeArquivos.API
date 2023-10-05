@@ -29,7 +29,7 @@ export const deleteImage = (req: Request, res: Response) => {
     fs.unlinkSync(imagePath);
 
     res.status(200).send("Imagem excluída com sucesso!");
-    console.log("\nImagem excluída com sucesso!\n")
+    console.log("\nImagem excluída com sucesso!\n");
   } catch (error) {
     console.error("Erro ao excluir a imagem: ", error);
     res.status(500).send("Erro ao exluir a imagem");
@@ -49,11 +49,18 @@ export const listImages = (req: Request, res: Response) => {
 
 export const findImage = (req: Request, res: Response) => {
   const { filename } = req.params;
-  const ext = filename
   const imagePath = path.join(__dirname, "../..", imageFolder, filename);
 
+  // res.setHeader("Access-Control-Allow-Origin", "*");
+
+  // // Request methods you wish to allow
+  // res.setHeader(
+  //   "Access-Control-Allow-Methods",
+  //   "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  // );
+
   try {
-    if (fs.existsSync(imagePath.replaceAll('\\', '/'))) {
+    if (fs.existsSync(imagePath.replaceAll("\\", "/"))) {
       res.sendFile(imagePath);
     } else {
       res.status(404).send("Imagem não encontrada.");
@@ -64,7 +71,6 @@ export const findImage = (req: Request, res: Response) => {
   }
 };
 
-
 export const health = (req: Request, res: Response) => {
-    res.status(200).send({message: "oi"})
-}
+  res.status(200).send({ message: "Olá!" });
+};
