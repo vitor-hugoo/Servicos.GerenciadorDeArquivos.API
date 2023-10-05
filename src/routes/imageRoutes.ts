@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {createImage, deleteImage, listImages, findImage, health} from "../controllers/imageController";
 import { upload } from "../configuration/imageUploadConfig";
+import cors from "cors";
 
 const imageRoutes = Router();
 
