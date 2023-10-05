@@ -49,10 +49,11 @@ export const listImages = (req: Request, res: Response) => {
 
 export const findImage = (req: Request, res: Response) => {
   const { filename } = req.params;
-  const imagePath = path.join(__dirname, "..", imageFolder, filename);
+  const ext = filename
+  const imagePath = path.join(__dirname, "../..", imageFolder, filename);
 
   try {
-    if (fs.existsSync(imagePath)) {
+    if (fs.existsSync(imagePath.replaceAll('\\', '/'))) {
       res.sendFile(imagePath);
     } else {
       res.status(404).send("Imagem não encontrada.");
@@ -62,3 +63,8 @@ export const findImage = (req: Request, res: Response) => {
     res.status(500).send("Erro ao obter a imagem");
   }
 };
+
+
+export const health = (req: Request, res: Response) => {
+    res.status(200).send({message: "oi"})
+}
