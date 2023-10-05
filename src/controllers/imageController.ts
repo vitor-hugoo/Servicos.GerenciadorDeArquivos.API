@@ -50,15 +50,7 @@ export const listImages = (req: Request, res: Response) => {
 export const findImage = (req: Request, res: Response) => {
   const { filename } = req.params;
   const imagePath = path.join(__dirname, "../..", imageFolder, filename);
-
-  // res.setHeader("Access-Control-Allow-Origin", "*");
-
-  // // Request methods you wish to allow
-  // res.setHeader(
-  //   "Access-Control-Allow-Methods",
-  //   "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  // );
-
+  
   try {
     if (fs.existsSync(imagePath.replaceAll("\\", "/"))) {
       res.sendFile(imagePath);
