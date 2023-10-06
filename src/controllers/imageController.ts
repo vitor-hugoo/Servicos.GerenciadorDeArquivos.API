@@ -2,16 +2,25 @@ import { Request, Response } from "express";
 import fs from "fs";
 import { port } from "../app";
 import path from "path";
+import { upload } from "../configuration/imageUploadConfig";
+import multer from "multer";
 
 const imageFolder = "uploads/";
 
 export const createImage = (req: Request, res: Response) => {
-  try {
+  upload.single("image")(req, res, (err)=>{
+   if (err instanceof multer.MulterError) {
+    return res.status(500).send(err.message)
+   }  else if (err) {
+    return res.status(400).send(err.message)
+   }
+   
+   try {
     if (!req.file) {
       return res.status(400).send("Nenhum arquivo enviado.");
     }
 
-    const imageUrl = `http://localhost:${port}/image/${req.file.filename}`;
+    const imageUrl = `http://10.0.13.22:${port}/api/images/${req.file.filename}`;
 
     res.status(200).json({ message: `Imagem salva com sucesso!`, imageUrl });
     console.log("\nImagen salva com sucesso!\n");
@@ -19,6 +28,10 @@ export const createImage = (req: Request, res: Response) => {
     console.error("Erro ao criar a imagem: ", error);
     res.status(500).send("Erro ao criar a imagem");
   }
+
+  });
+
+  
 };
 
 export const deleteImage = (req: Request, res: Response) => {

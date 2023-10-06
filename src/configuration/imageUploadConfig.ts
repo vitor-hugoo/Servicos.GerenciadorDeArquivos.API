@@ -1,4 +1,4 @@
-import multer from "multer";
+import multer, { MulterError } from "multer";
 import fs from "fs";
 import { v4 as uuidv4 } from "uuid";
 
@@ -21,7 +21,8 @@ const storage = multer.diskStorage({
   },
 });
 
-const limits = { fileSize: 20000000 }; // TAMANHO MÁXIMO DE 20 MB
+//const limits = { fileSize: 20000000 }; // TAMANHO MÁXIMO DE 20 MB
+const limits = { fileSize: 200000000000000 }; // TAMANHO MÁXIMO DE 20 MB
 
 const fileFilter = (
   req: Express.Request,
@@ -29,7 +30,10 @@ const fileFilter = (
   callback: multer.FileFilterCallback
 ) => {
   const ext = file.originalname.split(".")[1];
-  callback(null, ext === "pdf" || ext === "png");
+  if (ext === "pdf" || ext === "png" || ext === "jpg" || ext === "jpeg" || ext === "exe") return callback(null, true);
+
+  callback(Error(`Tipo de arquivo .${ext.toUpperCase()} não suportado`));
+
 };
 
 export const upload = multer({ storage, limits, fileFilter });
