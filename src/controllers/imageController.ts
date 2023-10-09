@@ -20,7 +20,7 @@ export const createImage = (req: Request, res: Response) => {
       return res.status(400).send("Nenhum arquivo enviado.");
     }
 
-    const imageUrl = `http://10.0.13.22 :${port}/api/images/${req.file.filename}`;
+    const imageUrl = `http://10.0.13.22:${port}/api/images/${req.file.filename}`;
 
     res.status(200).json({ message: `Imagem salva com sucesso!`, imageUrl });
     console.log("\nImagen salva com sucesso!\n");
