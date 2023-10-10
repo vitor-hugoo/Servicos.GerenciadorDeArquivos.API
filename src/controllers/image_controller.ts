@@ -2,13 +2,13 @@ import { Request, Response } from "express";
 import fs from "fs";
 import { port } from "../app";
 import path from "path";
-import { upload } from "../configuration/imageUploadConfig";
+import { upload } from "../configuration/imageUpload_config";
 import multer from "multer";
 
 const imageFolder = "uploads/";
 
 export const createImage = (req: Request, res: Response) => {
-  upload.single("image")(req, res, (err)=>{
+  upload.single("file")(req, res, (err)=>{
    if (err instanceof multer.MulterError) {
     return res.status(500).send(err.message)
    }  else if (err) {

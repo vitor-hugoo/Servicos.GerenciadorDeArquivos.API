@@ -24,13 +24,17 @@ const storage = multer.diskStorage({
 //const limits = { fileSize: 20000000 }; // TAMANHO MÁXIMO DE 20 MB
 const limits = { fileSize: 200000000000000 }; // TAMANHO MÁXIMO DE 20 MB
 
+const supportedFiles = ['pdf', 'png', 'jpg', 'jpeg']
+
 const fileFilter = (
   req: Express.Request,
   file: Express.Multer.File,
   callback: multer.FileFilterCallback
 ) => {
   const ext = file.originalname.split(".")[1];
-  if (ext === "pdf" || ext === "png" || ext === "jpg" || ext === "jpeg" || ext === "exe") return callback(null, true);
+  if (ext === "pdf" || ext === "png" || ext === "jpg" || ext === "jpeg") 
+  
+  return callback(null, true);
 
   callback(Error(`Tipo de arquivo .${ext.toUpperCase()} não suportado`));
 
