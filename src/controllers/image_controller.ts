@@ -5,7 +5,7 @@ import path from "path";
 import { upload } from "../configuration/imageUpload_config";
 import multer from "multer";
 
-const imageFolder = "uploads/";
+const imageFolder = `uploads/`;
 
 export const createImage = (req: Request, res: Response) => {
   upload.single("file")(req, res, (err)=>{
@@ -56,7 +56,7 @@ export const listImages = (req: Request, res: Response) => {
       res.status(500).json({ error: "Erro ao listar os arquivos" });
       return;
     }
-    res.json({ files });
+    res.json({ imageFolder : files });
   });
 };
 
@@ -76,6 +76,3 @@ export const findImage = (req: Request, res: Response) => {
   }
 };
 
-export const health = (req: Request, res: Response) => {
-  res.status(200).send({ message: "Olá!" });
-};

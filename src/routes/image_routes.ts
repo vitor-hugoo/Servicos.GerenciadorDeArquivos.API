@@ -5,7 +5,7 @@ import { upload } from "../configuration/imageUpload_config";
 
 const imageRoutes = Router();
 
-imageRoutes.post("/", createImage);
+imageRoutes.post("/:cnpj", createImage);
 imageRoutes.delete("/:filename", deleteImage);
 imageRoutes.get("/list", listImages);
 imageRoutes.get("/:filename", findImage)

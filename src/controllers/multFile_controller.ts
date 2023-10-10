@@ -21,13 +21,13 @@ export const createMultFile = (req: Request, res: Response) => {
         return res.status(400).send("Nenhum arquivo enviado.");
       }
       
-      // const bla = Array<Express.Multer.File>(req.files as unknown as Express.Multer.File)
-      
-      // const paths = bla.map(file => `http://10.0.13.22:${port}/api/files/${cnpj}/${file.originalname}`)
-      
-      const imageUrl = `http://10.0.13.22:${port}/api/images/${req.files}`;
-
-      res.status(200).json({ message: `Imagem salva com sucesso!`, imageUrl });
+      const files = req.files as Express.Multer.File[];
+      const paths: string[] = files.map(
+        (item: Express.Multer.File) =>
+          `http://10.0.13.22:${port}/api/files/${cnpj}/${item.filename}`
+      );
+     
+      res.status(200).json({ message: `Imagem salva com sucesso!`, paths });
       console.log(`\nImagen salva com sucesso!\n`);
     } catch (error) {
       console.error("Erro ao criar a imagem: ", error);
