@@ -27,7 +27,7 @@ const storage = multer.diskStorage({
   },
 });
 
-const limits = { fileSize: 20000000 }; // TAMANHO MÁXIMO DE 20 MB
+const limits = { fileSize: 20971520 }; // TAMANHO MÁXIMO DE 20 MB
 //const limits = { fileSize: 200000000000000 }; 
 
 const supportedFiles: String[] = ["pdf", "png", "jpg", "jpeg"];

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import fs from "fs";
-import { port } from "../app";
+import { HTTPS_PORT, HTTP_PORT } from "../app";
 import path from "path";
 import { upload } from "../configuration/imageUpload_config";
 import multer from "multer";
@@ -9,6 +9,7 @@ const imageFolder = `uploads/`;
 
 export const createImage = (req: Request, res: Response) => {
   upload.single("file")(req, res, (err)=>{
+    
    if (err instanceof multer.MulterError) {
     return res.status(500).send(err.message)
    }  else if (err) {
@@ -19,7 +20,9 @@ export const createImage = (req: Request, res: Response) => {
     if (!req.file) {
       return res.status(400).send("Nenhum arquivo enviado.");
     }
-
+    
+    const port = process.env.NODE_ENV === 'prod' ? HTTPS_PORT: HTTP_PORT
+        
     const imageUrl = `http://10.0.13.22:${port}/api/images/${req.file.filename}`;
 
     res.status(200).json({ message: `Imagem salva com sucesso!`, imageUrl });
