@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { createMultFile } from "../controllers/multFile_controller";
+import { createMultFiles } from "../controllers/multFiles_controller";
 
 const multFileRoutes = Router()
 
-multFileRoutes.post("/:cnpj", createMultFile)
+multFileRoutes.post("/:cnpj", createMultFiles)
 
 export default multFileRoutes

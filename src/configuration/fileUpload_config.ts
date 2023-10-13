@@ -4,10 +4,10 @@ import { v4 as uuidv4 } from "uuid";
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const imageFolder = `uploads/${req.params["cnpj"]}`;
+    const fileFolder = `uploads/${req.params["cnpj"]}`;
 
     fs.mkdir(
-      imageFolder,
+      fileFolder,
       {
         recursive: true,
       },
@@ -15,13 +15,13 @@ const storage = multer.diskStorage({
         if (err && err.code !== "EEXIST") {
           console.error("Erro ao criar a pasta de uploads: ", err);
         }
-        cb(null, imageFolder);
+        cb(null, fileFolder);
       }
     );
   },
   filename: (req, file, cb) => {
-    const ext = file.originalname.split(".")[1];
-    const filename = uuidv4() + "--"+ file.originalname +"--"+ Date.now() + "." + ext;
+    const [name, ext ]= file.originalname.split(".");
+    const filename = name +"--"+ uuidv4() + "--"+ Date.now() + "." + ext;
 
     cb(null, filename);
   },
@@ -40,8 +40,6 @@ const fileFilter = (
   const ext = file.originalname.split(".")[1];
   for (let index = 0; index < supportedFiles.length; index++) {
     if (ext == supportedFiles[index]) {
-      console.log(supportedFiles[index]);
-
       return callback(null, true);
     }
   }

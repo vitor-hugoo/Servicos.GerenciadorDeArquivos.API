@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { upload } from "../configuration/imageUpload_config";
+import { upload } from "../configuration/fileUpload_config";
 import multer from "multer";
 import { HTTPS_PORT, HTTP_PORT } from "../app";
 
 //const imageFolder = "uploads/";
 
-export const createMultFile = (req: Request, res: Response) => {
+export const createMultFiles = (req: Request, res: Response) => {
   const cnpj = req.params.cnpj
   
   upload.array("file")(req, res, (err) => {
@@ -28,11 +28,11 @@ export const createMultFile = (req: Request, res: Response) => {
           `http://10.0.13.22:${port}/api/files/${cnpj}/${item.filename}`
       );
      
-      res.status(200).json({ message: `Imagem salva com sucesso!`, paths });
-      console.log(`\nImagen salva com sucesso!\n`);
+      res.status(200).json({ message: `Arquivos salvos com sucesso!`, paths });
+      console.log(`\nArquivos salvos com sucesso!\n`);
     } catch (error) {
-      console.error("Erro ao criar a imagem: ", error);
-      res.status(500).send("Erro ao criar a imagem");
+      console.error("Erro ao salvar os arquivos: ", error);
+      res.status(500).send("Erro ao salvar os arquivos");
     }
   });
 };
