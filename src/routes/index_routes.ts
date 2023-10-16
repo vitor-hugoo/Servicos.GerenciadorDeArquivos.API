@@ -7,6 +7,6 @@ import multFileRoutes from "./multFile_routers";
 const router = express.Router();
 
 router.use("/file", fileRoutes);
-router.use("/files", multFileRoutes);
+router.use("/multi-files", multFileRoutes);
 
 export default router;
